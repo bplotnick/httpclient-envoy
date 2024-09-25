@@ -1,0 +1,29 @@
+entryPoints:
+  web:
+    address: ":80"
+
+accessLog: {}
+
+
+log:
+  level: TRACE
+
+api:
+  insecure: true
+  dashboard: true
+
+providers:
+  file:
+    filename: "/etc/traefik/traefik.yml"
+
+http:
+  routers:
+    httpbin:
+      service: httpbin
+      rule: "PathPrefix(`/`)"
+
+  services:
+    httpbin:
+      loadBalancer:
+        servers:
+          - url: "http://httpbin.org"
